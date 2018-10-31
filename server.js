@@ -35,7 +35,8 @@ app.set("view engine", "handlebars");
 
 
 // Connects to the database and collection, named as Unit18Homework
-mongoose.connect(process.env.MongoDB_LINK, { useNewUrlParser: true });
+var MONGODB_URI = process.env.MongoDB_LINK || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI)
 
 // Scrapes the Washington Post for it's main page headers
 app.get("/scrape", function(req, res) {
