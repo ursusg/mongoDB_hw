@@ -35,8 +35,7 @@ app.set("view engine", "handlebars");
 
 
 // Connects to the database and collection, named as Unit18Homework
-var MONGODB_URI = process.env.MongoDB_LINK || "mongodb://localhost/mongoHeadlines";
-mongoose.connect(MONGODB_URI)
+mongoose.connect(process.env.MongoDB_LINK, { useNewUrlParser: true });
 
 // Scrapes the Washington Post for it's main page headers
 app.get("/scrape", function(req, res) {
@@ -71,7 +70,7 @@ app.get("/scrape", function(req, res) {
       });
   
       // If we were able to successfully scrape and save an Article, send a message to the client
-      res.send("Scrape Complete");
+      res.redirect("/");
     });
   });
 
@@ -110,9 +109,38 @@ app.get("/clearArticles", function(req, res) {
   db.Article.remove({}, () => {});
 })
 
-app.get("/note:id", function(req, res) {
-  res.render("saved");
+app.post("/addNote", function(req, res) {
+  
+  db.Note.create(req.body).then(function(dbNote) {
+    res.json(dbNote);
+  });
+  
+});
+
+app.get("/note:id", function (req, res) {
+  let id = req.param.id
+
+  db.Note.where({id}).find({})
+  .then( function (savedArticles) {
+    res.json(savedArticles);
+    res.render("saved", {savedArticles: savedArticles});
+  })
+  .catch((err) => {
+    res.json(err)
+  }) 
+});
+
+app.get("/api/saved", function (req, res) {
+  db.Note.find({})
+    .then( function (dbNote) {
+      res.json(dbNote);
+    })
+    .catch(function(err){
+      res.json(err)
+    })
 })
+
+
 // Listens for the application to be running.
 app.listen(PORT, function () {
     console.log(`Listening on port: ${PORT}`)

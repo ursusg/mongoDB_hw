@@ -7,6 +7,8 @@
       <li class="active"><a href="/">Home</a></li>
       <li><a href="/articles">All Articles</a></li>
       <li><a href="/saved">Saved</a></li>
+      <li><a class="btn-small-floating" href="/scrape">Scrape</a></li>
+      <li><a class="btn-small-floating" href="/clearArticles">Clear</a></li>
     </ul>
   </div>
 </nav>
@@ -18,7 +20,8 @@
     <i class="material-icons">fiber_new</i>
     <span class="col-s6">{{this.title}}</span>
   </h4>
-  Click <a href="{{this.link}}" class="link">here</a> to read more! or <a href="/note/{{this.id}}">Add a note!</a>
+  Click <a href="{{this.link}}" class="link">here</a> to read more! 
+  {{!-- or <a href="/api/saved" class="save btn-small-floating">Add a note!</a> --}}
   <div class="divider"></div>
   {{/each}}
 </div>

@@ -1,4 +1,3 @@
-
 {{!-- Materalize Navbar --}}
 <nav>
   <div class="nav-wrapper">
@@ -8,7 +7,18 @@
       <li><a href="/articles">All Articles</a></li>
       <li><a href="/saved">Saved</a></li>
       {{!-- Button to clear articles in saved db. --}}
-      <li><a href="/clear">CLEAR</a></li>
+      <li><a class="btn" href="/clear">CLEAR</a></li>
     </ul>
+  </div>
+  <div>
+    {{#each savedArticles}}
+    <div class="divider"></div>
+    <h4 class="title">
+      <i class="material-icons">fiber_new</i>
+      <span class="col-s6">{{this.title}}</span>
+    </h4>
+    Click <a href="{{this.link}}" class="link">here</a> to read more! or <a href="/note/{{this.id}}">Add a note!</a>
+    <div class="divider"></div>
+    {{/each}}
   </div>
 </nav>
