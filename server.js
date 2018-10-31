@@ -33,9 +33,10 @@ app.use(express.static("static"));
 app.engine("handlebars", expressHandlebars({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Unit18Homework";
 
 // Connects to the database and collection, named as Unit18Homework
-mongoose.connect(process.env.MongoDB_LINK, { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Scrapes the Washington Post for it's main page headers
 app.get("/scrape", function(req, res) {
